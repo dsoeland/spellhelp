@@ -1,0 +1,19 @@
+# IntelliJ Project Files
+.idea/
+*.iml
+*.iws
+
+# Mac System Files
+.DS_Store
+
+# Java / Backend Build Files
+/backend/target/
+/backend/build/
+/backend/.mvn/wrapper/maven-wrapper.jar
+/backend/help.md
+
+# Angular / Frontend Build Files
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/
+/frontend/.vscode/
