@@ -24,6 +24,8 @@
 <li>Adjustable GCD. No longer a mandatory 5 seconds.</li>
 <li>Performance information stored to profile.</li>
 </ul>
+<br>
+<h3>Iteration 3:</h3>
 
 ## Active Issues
 <!--
