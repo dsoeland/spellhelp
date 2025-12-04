@@ -1,0 +1,22 @@
+name: Update Issue List
+
+on:
+  issues:
+    types: [opened, edited, closed, reopened]
+  workflow_dispatch: # Allows manual triggering for testing
+
+permissions:
+  contents: write # Gives the bot permission to edit the README
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Update Issue List
+        uses: seed-of-apricot/issue-list-readme@v1.1.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pattern: '' # This must match what you put in your README
