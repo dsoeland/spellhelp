@@ -38,7 +38,7 @@ export class App {
   message = 'Loading...';
 
   constructor() {
-    this.http.get('http://localhost:8080/api/hello', { responseType: 'text' })
+    this.http.get('http://localhost:8080/api/abilities', { responseType: 'text' })
       .subscribe({
         next: (data) => this.message = data,
         error: (err) => {
