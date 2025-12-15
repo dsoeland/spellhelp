@@ -19,6 +19,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterOutlet } from '@angular/router';
+import {catchError, Observable, of, startWith} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -28,23 +29,23 @@ import { RouterOutlet } from '@angular/router';
   template: `
     <div style="text-align:center; margin-top: 50px;">
       <h1>SpellHelp (Modern Stack)</h1>
-      <h2>Backend says: {{ message }}</h2>
+      <h2>Backend says: {{ message$ | async }}</h2>
     </div>
   `,
   styles: []
 })
 export class App {
   http = inject(HttpClient);
-  message = 'Loading...';
+  message$: Observable<string>;
 
   constructor() {
-    this.http.get('http://localhost:8080/api/abilities', { responseType: 'text' })
-      .subscribe({
-        next: (data) => this.message = data,
-        error: (err) => {
+    this.message$ = this.http.get('http://localhost:8080/api/abilities', { responseType: 'text' })
+      .pipe(
+        startWith('Loading...'),
+        catchError (err => {
           console.error(err);
-          this.message = 'Error connecting to backend (Is it running?)';
-        }
-      });
+          return of('Error connecting to backend (Is it running?)');
+        })
+      );
   }
 }
