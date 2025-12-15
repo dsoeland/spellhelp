@@ -15,13 +15,8 @@ public class Abilities {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("api/abilities")
-    public String ability() {
+    public String[] ability() {
         System.out.println("Backend accessed");
-//        for(String ability : abilities) {
-//            System.out.println(ability);
-//            return ability;
-//
-//        }
-        return "No abilities found!";
+        return abilities;
     }
 }
