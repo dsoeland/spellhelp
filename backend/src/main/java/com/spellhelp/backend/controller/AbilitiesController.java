@@ -20,8 +20,9 @@ public class AbilitiesController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/abilities")
+    @GetMapping("/abilities/{id}")
     public ResponseEntity<Abilities> getAbility(@PathVariable("id") Long id) {
+        System.out.println("getAbility started");
         Abilities ability = abilitiesService.findById(id);
         if (ability != null) {
             return new ResponseEntity<>(ability, HttpStatus.OK);

@@ -29,5 +29,9 @@
 <ol>
 <li>Make it more awesome.....</li>
 </ol>
+<hr>
+<h6>Using:</h6>
+<p>Angular 21</p>
+<p>Java 25</p>
 
 

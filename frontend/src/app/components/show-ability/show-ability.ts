@@ -18,7 +18,9 @@ export class ShowAbility implements OnInit{
   }
 
   ngOnInit() {
-    const abilityIdParam = this.route.snapshot.paramMap.get("id");
+    //const abilityIdParam = this.route.snapshot.paramMap.get("id");
+    const abilityIdParam = 1;
+    console.log(abilityIdParam);
 
     if(abilityIdParam) {
       const abilityId = +abilityIdParam;
@@ -36,7 +38,7 @@ export class ShowAbility implements OnInit{
   }
 
   getAbility(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`)
+    return this.http.get(`api/abilities/${id}`)
   }
 
 }
