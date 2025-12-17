@@ -2,16 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-show-ability',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './show-ability.html',
   styleUrl: './show-ability.css',
 })
 export class ShowAbility implements OnInit{
 
-  ability: any;
+  ability$: Observable<any> | undefined;
   private apiUrl = '/api';
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
@@ -25,20 +26,22 @@ export class ShowAbility implements OnInit{
     if(abilityIdParam) {
       const abilityId = +abilityIdParam;
 
-      this.getAbility(abilityId).subscribe({
-        next: data => {
-          this.ability = data;
-          console.log('ability loaded', data);
-        },
-        error: err => {
-          console.log('ability didnt load correctly', err)
-        }
-      });
+      this.ability$=
+      this.getAbility(abilityId);
+      //   .subscribe({
+      //   next: data => {
+      //     this.ability = data;
+      //     console.log('ability loaded', data);
+      //   },
+      //   error: err => {
+      //     console.log('ability didnt load correctly', err)
+      //   }
+      // });
     }
   }
 
   getAbility(id: number): Observable<any> {
-    return this.http.get(`api/abilities/${id}`)
+    return this.http.get(`http://localhost:8080/api/abilities/${id}`)
   }
 
 }

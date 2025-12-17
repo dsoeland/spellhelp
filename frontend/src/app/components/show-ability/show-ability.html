@@ -1,6 +1,10 @@
-<div class="container">
-
+<div class="container" >
+  @if (ability$ | async; as ability) {
     <h2>The ability is:</h2>
     <p>{{ ability.name }}</p>
+  } @else {
+    <p>Loading...</p>
+  }
+
   </div>
 
