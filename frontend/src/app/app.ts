@@ -1,5 +1,5 @@
 
-import { Component, signal } from '@angular/core';
+import {Component, HostListener, signal} from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ShowAbility} from './components/show-ability/show-ability';
@@ -17,8 +17,11 @@ import {ShowAbility} from './components/show-ability/show-ability';
 export class App {
   protected readonly title = signal('frontend');
 
-  constructor(private router: Router) {
+  constructor() {}
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(event.key);
   }
 
 }

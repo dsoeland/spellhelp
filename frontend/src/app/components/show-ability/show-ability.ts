@@ -26,17 +26,8 @@ export class ShowAbility implements OnInit{
     if(abilityIdParam) {
       const abilityId = +abilityIdParam;
 
-      this.ability$=
-      this.getAbility(abilityId);
-      //   .subscribe({
-      //   next: data => {
-      //     this.ability = data;
-      //     console.log('ability loaded', data);
-      //   },
-      //   error: err => {
-      //     console.log('ability didnt load correctly', err)
-      //   }
-      // });
+      this.ability$ = this.getAbility(abilityId);
+
     }
   }
 
