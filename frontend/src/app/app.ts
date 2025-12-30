@@ -19,10 +19,6 @@ export class App {
 
   constructor() {}
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event.key);
-  }
 
 }
 

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {Observable, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
@@ -13,7 +13,7 @@ import {AsyncPipe} from '@angular/common';
 export class ShowAbility implements OnInit{
 
   ability$: Observable<any> | undefined;
-  private apiUrl = '/api';
+  keyEvent: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
@@ -31,8 +31,22 @@ export class ShowAbility implements OnInit{
     }
   }
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    //console.log(event.key);
+    this.keyEvent = event.key;
+    console.log(this.keyEvent);
+  }
+
+
   getAbility(id: number): Observable<any> {
-    return this.http.get(`http://localhost:8080/api/abilities/${id}`)
+    let datacheck = this.http.get(`http://localhost:8080/api/abilities/${id}`)
+    datacheck.pipe(
+      tap(data => console.log('ability data: ', data))
+    ).subscribe();
+
+    return datacheck;
+    //return this.http.get(`http://localhost:8080/api/abilities/${id}`)
   }
 
 }
