@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class AbilitiesController {
@@ -27,6 +29,17 @@ public class AbilitiesController {
         if (ability != null) {
             return new ResponseEntity<>(ability, HttpStatus.OK);
         }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/abilities")
+    public ResponseEntity<List<Abilities>> getAllAbilities() {
+        List<Abilities> abilities = abilitiesService.findAll();
+        if (abilities != null) {
+            return new ResponseEntity<>(abilities, HttpStatus.OK);
+        }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
