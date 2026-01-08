@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {Observable, tap} from 'rxjs';
+import {BehaviorSubject, filter, map, Observable, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
@@ -14,6 +14,7 @@ export class ShowAbility implements OnInit{
 
   ability$: Observable<any> | undefined;
   keyEvent: any;
+  isCorrect$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
@@ -36,6 +37,16 @@ export class ShowAbility implements OnInit{
     //console.log(event.key);
     this.keyEvent = event.key;
     console.log(this.keyEvent);
+    if(this.ability$) {
+      this.ability$.pipe(
+        map(ability => event.key === ability.keybind),
+        filter(isMatch => isMatch)
+      ).subscribe(() => {
+        console.log('Correct key pressed for: ', event.key);
+        //Trigger success logic within this subscribe (like a highlight in green/red or trigger next ability)
+        this.isCorrect$.next(true);
+      });
+    }
   }
 
 

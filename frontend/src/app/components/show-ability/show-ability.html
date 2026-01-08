@@ -1,7 +1,7 @@
 <div class="container" >
   @if (ability$ | async; as ability) {
     <h2>The ability is:</h2>
-    <p>{{ ability.name }}</p>
+    <p [class.correct-key]="isCorrect$ | async">{{ ability.name }}</p>
   } @else {
     <p>Loading...</p>
   }
