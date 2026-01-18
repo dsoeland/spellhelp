@@ -1,4 +1,7 @@
 <div class="container" >
+  <div class="counter">
+    Correct Hits: {{ correctCount }}
+  </div>
   @if (currentAbility$ | async; as ability) {
     <h2>The ability is:</h2>
     <p [class.correct-key]="isCorrect$ | async">{{ ability.name }}</p>

@@ -12,10 +12,11 @@ import {AsyncPipe} from '@angular/common';
 })
 export class ShowAbility implements OnInit, OnDestroy {
 
-  ability$: Observable<any> | undefined;
+  //ability$: Observable<any> | undefined;
   currentAbility$ = new BehaviorSubject<any>(null);
-  keyEvent: any;
+  //keyEvent: any;
   isCorrect$ = new BehaviorSubject<boolean>(false);
+  correctCount: number = 0;
 
   private abilities: any[] = [];
   private currentIndex = 0;
@@ -43,43 +44,59 @@ export class ShowAbility implements OnInit, OnDestroy {
   }
 
   startCycling() {
+    if(this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
     this.timerSubscription = interval(3000).subscribe(() => {
       this.nextAbility();
     });
 
-    this.nextAbility();
+    //this.nextAbility();
   }
 
   nextAbility() {
     this.isCorrect$.next(false);
 
-    const ability = this.abilities[this.currentIndex];
-    this.currentAbility$.next(ability);
+    if(this.abilities.length > 0){
+      const ability = this.abilities[this.currentIndex];
+      this.currentAbility$.next(ability);
 
-    this.currentIndex = (this.currentIndex + 1) % this.abilities.length;
-    console.log('current ability: ', ability.name);
+      this.currentIndex = (this.currentIndex + 1) % this.abilities.length;
+      console.log('current ability: ', ability.name);
+
+      this.startCycling()
+    }
+
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     //console.log(event.key);
-    this.keyEvent = event.key;
+    //this.keyEvent = event.key;
     const activeAbility = this.currentAbility$.value;
-    console.log(this.keyEvent);
-    if(this.ability$) {
-      this.ability$.pipe(
-        map(ability => event.key === ability.keybind),
-        filter(isMatch => isMatch)
-      ).subscribe(() => {
+    //console.log(this.keyEvent);
+    // if(this.ability$) {
+    //   this.ability$.pipe(
+    //     map(ability => event.key === ability.keybind),
+    //     filter(isMatch => isMatch)
+    //   ).subscribe(() => {
         if(activeAbility && event.key === activeAbility.keybind) {
           console.log('Correct key pressed for: ', event.key);
           //Trigger success logic within this subscribe (like a highlight in green/red or trigger next ability)
-          this.isCorrect$.next(true);
+          //this.isCorrect$.next(true);
+          //if(this.isCorrect$) {
+            this.correctCount++
+            this.isCorrect$.next(true);
 
+            setTimeout(() => this.nextAbility(), 200)
+          //}
+
+        }else{
+          console.log('The correct key should have been: ', activeAbility.keybind);
         }
 
-      });
-    }
+      //});
+    //}
   }
 
   ngOnDestroy() {

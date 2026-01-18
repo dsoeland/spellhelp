@@ -20,6 +20,8 @@ public class BackendApplication {
             if(abilitiesRepository.count() == 0) {
                 abilitiesRepository.save(new Abilities("Holy Shock", "f"));
                 abilitiesRepository.save(new Abilities("Holy Radiance", "d"));
+                abilitiesRepository.save(new Abilities("Holy Light", "s"));
+                abilitiesRepository.save(new Abilities("Flash of Light", "a"));
                 System.out.println("Abilities Saved to database.");
             }
         };
