@@ -1,0 +1,44 @@
+<div class="landing-container">
+  <header>
+    <h1>Spell Help</h1>
+    <p>Master your keybinds and elevate your gameplay!</p>
+  </header>
+
+  <section class="login-section">
+    <div class="login-card">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input id="username" type="text" formControlName="username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" formControlName="password">
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+      </form>
+    </div>
+  </section>
+
+  <section class="site-info">
+    <div class="info-block">
+      <h3>About Spell Help</h3>
+      <p>This platform is designed to help players gain muscle memory for ability keybinds through timed practice sessions.</p>
+    </div>
+
+    <div class="info-block">
+      <h3>How it Works</h3>
+      <p>Provide your ability list and keybinds. During practice, you'll have a limited time to hit the correct key as abilities cycle through.</p>
+    </div>
+
+    <div class="info-block">
+      <h3>Upcoming Features</h3>
+      <p>Soon, you will be able to store multiple character profiles and upload CSV data for your spells.</p>
+    </div>
+  </section>
+
+</div>

@@ -6,6 +6,7 @@ import {ShowAbility} from './components/show-ability/show-ability';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [
     CommonModule,
     RouterOutlet,
