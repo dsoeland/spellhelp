@@ -1,7 +1,9 @@
 package com.spellhelp.backend;
 
 import com.spellhelp.backend.entity.Abilities;
+import com.spellhelp.backend.entity.User;
 import com.spellhelp.backend.repository.AbilitiesRepository;
+import com.spellhelp.backend.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,13 +17,15 @@ public class BackendApplication {
     }
 
     @Bean
-    CommandLineRunner run(AbilitiesRepository abilitiesRepository) {
+    CommandLineRunner run(AbilitiesRepository abilitiesRepository, UserRepository userRepository) {
         return args -> {
-            if(abilitiesRepository.count() == 0) {
+            if(abilitiesRepository.count() == 0 && (userRepository.count() == 0)) {
                 abilitiesRepository.save(new Abilities("Holy Shock", "f"));
                 abilitiesRepository.save(new Abilities("Holy Radiance", "d"));
                 abilitiesRepository.save(new Abilities("Holy Light", "s"));
                 abilitiesRepository.save(new Abilities("Flash of Light", "a"));
+
+                userRepository.save(new User("BigD", "BigS", "email@gmail.com", "1234"));
                 System.out.println("Abilities Saved to database.");
             }
         };

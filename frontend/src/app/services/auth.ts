@@ -13,7 +13,11 @@ export class Auth {
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<string> {
-    return this.http.post(`${this.baseUrl}/login`, credentials, {responseType: "text"}).pipe(tap(token => {this.saveToken(token)}));
+    return this.http.post(`${this.baseUrl}/login`, credentials, {responseType: "text"}).pipe(
+      tap(token => {
+        this.saveToken(token)
+      })
+    );
   }
 
   saveToken(token: string) {

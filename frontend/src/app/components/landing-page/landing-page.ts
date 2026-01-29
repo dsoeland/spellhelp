@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Auth} from '../../services/auth';
 
 @Component({
   selector: 'app-landing-page',
@@ -14,9 +15,9 @@ export class LandingPage {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: Auth) {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
@@ -24,8 +25,16 @@ export class LandingPage {
   onLogin() {
     if (this.loginForm.valid) {
       console.log('Login attempt with: ', this.loginForm.value);
-      this.router.navigate(['/dashboard']);
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (token) => {
+          console.log('login successful');
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.log('login error: ', error);
+          alert('Invalid username or password');
+        }
+      });
     }
   }
-
 }
