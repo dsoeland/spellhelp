@@ -25,7 +25,7 @@ public class BackendApplication {
                 abilitiesRepository.save(new Abilities("Holy Light", "s"));
                 abilitiesRepository.save(new Abilities("Flash of Light", "a"));
 
-                userRepository.save(new User("BigD", "BigS", "email@gmail.com", "1234"));
+                userRepository.save(new User("BigD", "BigS", "email@gmail.com", "$2a$12$mDJgC/6rop0ZHvO6IGH1AecmEkodyJgnUpUjA87BBWmsFDZX3rEvC"));
                 System.out.println("Abilities Saved to database.");
             }
         };
