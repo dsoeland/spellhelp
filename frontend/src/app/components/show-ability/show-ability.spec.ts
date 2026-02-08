@@ -5,7 +5,7 @@ import {provideHttpClient} from '@angular/common/http';
 import {provideRouter} from '@angular/router';
 import {render} from '@testing-library/angular';
 import {of} from 'rxjs';
-import { AbilitiesService } from '../../services/'
+import {provideHttpClientTesting} from '@angular/common/http/testing';
 
 describe('ShowAbility', () => {
   let component: ShowAbility;
@@ -30,12 +30,8 @@ describe('ShowAbility', () => {
     await render(ShowAbility, {
       providers: [
         provideRouter([]),
-        {
-          provide: AbilitiesService,
-          useValue: {
-            getAbilities: () => of([])
-          }
-        }
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     });
   });

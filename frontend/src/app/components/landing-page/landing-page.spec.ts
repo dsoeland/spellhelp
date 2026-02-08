@@ -35,8 +35,8 @@ describe('LandingPage QA Suite', () => {
       providers: [provideHttpClient(), provideHttpClientTesting()]
     });
 
-    const button = screen.getByRole('button', { name: /login/i });
-    expect(button).toBeDisabled();
+    const button = screen.getByRole('button', { name: /login/i }) as HTMLButtonElement;
+    expect(button.disabled).toBe(true);
   });
 
 
@@ -51,15 +51,15 @@ describe('LandingPage QA Suite', () => {
 
     const emailInput = screen.getByLabelText(/username/i);
     const passwordInput = screen.getByLabelText(/password/i);
-    const button = screen.getByRole('button', { name: /login/i });
+    const button = screen.getByRole('button', { name: /login/i }) as HTMLButtonElement;
 
     fireEvent.input(emailInput, { target: { value: 'email@gmail.com' }});
     fireEvent.input(passwordInput, { target: { value: '1234' }});
 
-    expect(button).not.toBeDisabled();
+    expect(button.disabled).toBe(false);
     fireEvent.click(button);
 
-    expect(loginSpy).toHaveBeenCalledWith({ email: 'email@gmail.com', password: '1234' });
+    expect(loginSpy).toHaveBeenCalledWith({ username: 'email@gmail.com', password: '1234' });
   });
 
   it('should handle login failure gracefully', async () => {
@@ -70,14 +70,15 @@ describe('LandingPage QA Suite', () => {
 
     const authService = fixture.debugElement.injector.get(Auth);
     vi.spyOn(authService, 'login').mockReturnValue(throwError(() => new Error('401')));
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
 
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {
-      fireEvent.input(screen.getByLabelText(/username/i), { target: { value: 'wrong@test.com'}});
-      fireEvent.input(screen.getByLabelText(/password/i), { target: { value: 'wrong' }});
-      fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
-      expect(alertSpy).toHaveBeenCalled();
-    })
+    fireEvent.input(screen.getByLabelText(/username/i), { target: { value: 'wrong@test.com'}});
+    fireEvent.input(screen.getByLabelText(/password/i), { target: { value: 'wrong' }});
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+
+    expect(alertSpy).toHaveBeenCalled();
+
 
   })
 
