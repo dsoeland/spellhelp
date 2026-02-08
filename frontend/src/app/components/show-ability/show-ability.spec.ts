@@ -1,23 +1,42 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowAbility } from './show-ability';
+import {provideHttpClient} from '@angular/common/http';
+import {provideRouter} from '@angular/router';
+import {render} from '@testing-library/angular';
+import {of} from 'rxjs';
+import { AbilitiesService } from '../../services/'
 
 describe('ShowAbility', () => {
   let component: ShowAbility;
   let fixture: ComponentFixture<ShowAbility>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ShowAbility]
-    })
-    .compileComponents();
+  // beforeEach(async () => {
+  //   await TestBed.configureTestingModule({
+  //     imports: [ShowAbility],
+  //     providers: [
+  //       provideHttpClient(),
+  //       provideRouter([])
+  //     ]
+  //   })
+  //   .compileComponents();
+  //
+  //   fixture = TestBed.createComponent(ShowAbility);
+  //   component = fixture.componentInstance;
+  //   await fixture.whenStable();
+  // });
 
-    fixture = TestBed.createComponent(ShowAbility);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    await render(ShowAbility, {
+      providers: [
+        provideRouter([]),
+        {
+          provide: AbilitiesService,
+          useValue: {
+            getAbilities: () => of([])
+          }
+        }
+      ]
+    });
   });
 });
