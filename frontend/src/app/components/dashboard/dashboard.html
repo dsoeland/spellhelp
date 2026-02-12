@@ -1,0 +1,22 @@
+<div class="dashboard-container">
+  <nav class="dash-nav">
+    <h1>Spell Help Dashboard</h1>
+    <button (click)="onLogout()" class="logout-btn">Logout</button>
+  </nav>
+
+  <div class="grid-container">
+    <section class="stat-card">
+      <h3>Quick Stats</h3>
+      <p>Current Abilities: <strong>{{ abilitiesCount }}</strong></p>
+      <p>Last Session: <em>Coming Soon</em></p>
+    </section>
+
+    <section class="action-card">
+      <h3>What would you like to do?</h3>
+      <div class="button-group">
+        <button [routerLink]="['/practice']" class="primary-btn">Start Practice Round</button>
+        <button [routerLink]="['/manage-abilities']" class="secondary-btn">Manage Abilities</button>
+      </div>
+    </section>
+  </div>
+</div>

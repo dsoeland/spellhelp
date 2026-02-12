@@ -2,6 +2,7 @@ package com.spellhelp.backend.controller;
 
 import com.spellhelp.backend.entity.Abilities;
 import com.spellhelp.backend.service.AbilitiesService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,18 @@ public class AbilitiesController {
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/abilities")
+    public ResponseEntity<Abilities> addAbilities(@Valid @RequestBody Abilities ability) {
+        Abilities savedAbilities = abilitiesService.saveAbility(ability);
+        return new ResponseEntity<>(savedAbilities, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/abilities/{id}")
+    public ResponseEntity<Void> deleteAbility(@PathVariable("id") Long id) {
+        abilitiesService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
