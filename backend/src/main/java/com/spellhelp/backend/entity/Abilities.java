@@ -11,6 +11,9 @@ public class Abilities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "userId")
+    private Long userId;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -21,8 +24,8 @@ public class Abilities {
 
     }
 
-    public Abilities(String name, String keybind) {
-
+    public Abilities(Long userId, String name, String keybind) {
+        this.userId = userId;
         this.name = name;
         this.keybind = keybind;
     }
@@ -32,6 +35,15 @@ public class Abilities {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }
