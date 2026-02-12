@@ -5,6 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    User registerNewUser(User user);
+    User registerUser(User user);
     UserDetails loadUserByUsername(String email);
 }

@@ -1,6 +1,7 @@
 package com.spellhelp.backend.controller;
 
 import com.spellhelp.backend.dto.LoginDto;
+import com.spellhelp.backend.entity.User;
 import com.spellhelp.backend.service.JwtAuthService;
 import com.spellhelp.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -36,6 +37,23 @@ public class LoginController {
         String jwt = jwtAuthService.generateJwtToken(authentication);
         return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
+
+    @PostMapping("/register/user")
+    public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
+        User newUser = new User();
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+
+        userService.registerUser(newUser);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+
+
+
+
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> handleAuthException(AuthenticationException e) {

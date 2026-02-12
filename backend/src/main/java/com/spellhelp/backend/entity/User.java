@@ -2,6 +2,8 @@ package com.spellhelp.backend.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,10 +28,14 @@ public class User implements UserDetails {
     @Column(name = "last_name", length = 100)
     private String lastName;
 
+    @NotNull
+    @NotBlank
     @Email
     @Column(name = "email", unique = true)
     private String email;
 
+    @NotNull
+    @NotBlank
     @Column(name = "password", nullable = false)
     private String password;
 

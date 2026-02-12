@@ -20,6 +20,10 @@ export class Auth {
     );
   }
 
+  registerUser(userData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register/user`, userData);
+  }
+
   saveToken(token: string) {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
